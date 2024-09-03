@@ -11,7 +11,6 @@ export default function Quote() {
             we've got you covered. <br />
             Get quick recommendations and skip the research – <br />
             so you can enjoy your movie while the popcorn’s still hot!
-            <p></p>
             {/* <span className="text-7xl flex float-right  mr-2 md:text-7xl  text-orange-400 leading-none">"</span> */}
           </p>
         </div>
