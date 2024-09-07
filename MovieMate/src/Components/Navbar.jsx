@@ -1,12 +1,41 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const Nav = () => {
-    let Links =[
-      {name:"Create Post",link:"/"},
-      {name:"LogOut",link:"/"},
+  const [links, setLinks] = useState([]);
+  const navigate=useNavigate();
+
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    
+    if (token) {
+      setLinks([
+        { name: "Create Post", link: "/" },
+        { name: "Logout", link:'/' },
+      ]);
       
-    ];
+    } else {
+      setLinks([
+        { name: "Login", link: "/login" },
+      ]);
+    }
+    
+  }, []);
+  const handleLinkClick = (event, link) => {
+    event.preventDefault(); 
+
+    if (link === "Logout") {
+      localStorage.removeItem('token'); // Remove token from localStorage
+      navigate('/'); // Redirect to login page
+    } else {
+      navigate('/'); // Navigate to the specified link
+    }
+  };
+
+  
+    
     let [open,setOpen]=useState(false);
+    
   return (
     <div className='shadow-md w-full fixed top-0 left-0 mb-1'>
       <div className='md:flex items-center justify-between  bg-gray-600 py-4 md:px-10 px-7'>
@@ -24,9 +53,9 @@ const Nav = () => {
 
       <ul className={`md:flex md:items-center md:pb-0 pb-5 absolute md:static md:bg-none bg-gray-600  md:z-auto z-[-1] left-0 w-full md:w-auto md:pl-0 pl-9 transition-all duration-500 ease-in ${open ? 'top-20 ':'top-[-490px]'}`}>
         {
-          Links.map((link)=>(
+          links.map((link)=>(
             <li key={link.name} className='md:ml-8 text-lg  md:my-0 my-7'>
-              <a href={link.link} className='text-white hover:text-gray-400 duration-500'>{link.name}</a>
+              <a href={link.link} onClick={(event) => handleLinkClick(event, link.name)} className='text-white hover:text-gray-400 duration-500 cursor-pointer'>{link.name}</a>
             </li>
           ))
         }
