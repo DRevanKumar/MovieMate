@@ -4,13 +4,15 @@ import { useNavigate } from 'react-router-dom';
 const Nav = () => {
   const [links, setLinks] = useState([]);
   const navigate=useNavigate();
+  const token = localStorage.getItem('token');
+
 
   useEffect(() => {
     const token = localStorage.getItem('token');
     
     if (token) {
       setLinks([
-        { name: "Create Post", link: "/" },
+        { name: "Create Post", link: "/CreatePost" },
         { name: "Logout", link:'/' },
       ]);
       
@@ -20,15 +22,19 @@ const Nav = () => {
       ]);
     }
     
-  }, []);
+  }, [token]);
   const handleLinkClick = (event, link) => {
     event.preventDefault(); 
 
     if (link === "Logout") {
       localStorage.removeItem('token'); // Remove token from localStorage
       navigate('/'); // Redirect to login page
-    } else {
-      navigate('/'); // Navigate to the specified link
+    } else if(link == "Create Post"){
+      navigate('/CreatePost'); // Navigate to the specified link
+    }else if(link == "Login"){
+      navigate("/login")
+    }else{
+      navigate("/")
     }
   };
 
