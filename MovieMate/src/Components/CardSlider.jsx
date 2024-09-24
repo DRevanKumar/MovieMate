@@ -71,7 +71,8 @@ export default function CardSlider() {
     >
       
 
-      {Object.keys(genreData).map((genre) => {
+      {Object.entries(genreData).map(([genre,movies]) => {
+        if(movies.length===0) return null
         const filteredMovies = genreData[genre];
 
         return (
@@ -97,6 +98,7 @@ export default function CardSlider() {
               className="mySwiper"
             >
               {filteredMovies.map((item) => (
+                
                 <SwiperSlide key={item._id}>
                   <motion.div 
                     whileHover={{ scale: 1.05 }}
