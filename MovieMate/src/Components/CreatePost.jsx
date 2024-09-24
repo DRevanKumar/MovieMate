@@ -7,9 +7,7 @@ import { useNavigate } from 'react-router-dom';
 
 const API = import.meta.env.VITE_API_KEY;
 const API1 = import.meta.env.VITE_API_KEY1
-console.log(API)
-console.log(API1)
-console.log(import.meta)
+
 
 
 function CreatePost() {
@@ -33,7 +31,7 @@ function CreatePost() {
     const getMovieById = async (imdbID) =>{
         try {
             // Replace with your actual API URL and key
-            const response = await fetch(`https://www.omdbapi.com/?apikey=${API1}&i=${imdbID}`);
+            const response = await fetch(`https://www.omdbapi.com/?apikey=${API}&i=${imdbID}`);
             const data = await response.json();
             setSelectedMovie(data);
             console.log(selectedMovie)
