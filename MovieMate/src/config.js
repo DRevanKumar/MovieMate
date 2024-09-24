@@ -1,1 +1,1 @@
-export const backend_Url="http://localhost:3000"
+export const backend_Url="https://moviemate-yazw.onrender.com"
