@@ -1,30 +1,26 @@
+import React, { useContext, useEffect, useState } from "react";
+import { motion } from "framer-motion";
 import { Swiper, SwiperSlide } from "swiper/react";
+import { FreeMode, Pagination, Navigation } from "swiper/modules";
+import axios from 'axios';
+import { useNavigate } from "react-router-dom";
+import { backend_Url } from "../config";
+
 import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/free-mode";
 import "swiper/css/navigation";
-import { FreeMode, Pagination, Navigation } from "swiper/modules";
-import { useEffect, useState } from "react";
-import axios from 'axios';
-import { backend_Url } from "../config";
-import { useNavigate } from "react-router-dom";
+import { MoviesStateContext } from "./Moviecontext";
 
 export default function CardSlider() {
   const navigate = useNavigate();
-  const[searchTerm,setSearchTerm] = useState('')
   const [loading, setLoading] = useState(true);
-  const [movies, setMovies] = useState([]);
-
-  async function handleClick(id){
-    console.log(id)
-
-  }
+  const {movies, setMovies} = useContext(MoviesStateContext);
 
   useEffect(() => {
     async function fetchPost() {
       try {
         const response = await axios.get(`${backend_Url}/movies`);
-        console.log("Fetched Movies:", response.data);
         if (Array.isArray(response.data)) {
           setMovies(response.data);
         } else {
@@ -39,121 +35,118 @@ export default function CardSlider() {
     fetchPost();
   }, []);
 
-  if (loading) return <div className="text-center mt-10">Loading...</div>;
+  if (loading) return (
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      className="flex justify-center items-center h-screen"
+    >
+      <div className="animate-spin rounded-full h-32 w-32 border-t-2 border-b-2 border-blue-500"></div>
+    </motion.div>
+  );
 
   const genreData = {
     Action: movies.filter(movie => movie.Genre.includes("Action")),
     Comedy: movies.filter(movie => movie.Genre.includes("Comedy")),
-    Drama: movies.filter(movie => movie.Genre.includes("Drama")),
+    Horror: movies.filter(movie => movie.Genre.includes("Horror")),
     Mystery: movies.filter(movie => movie.Genre.includes("Mystery")),
+    Family: movies.filter(movie => movie.Genre.includes("Family")),
+    Others: movies.filter(movie => 
+      !(
+          movie.Genre.includes("Action") || 
+          movie.Genre.includes("Comedy") || 
+          movie.Genre.includes("Horror") || 
+          movie.Genre.includes("Mystery") || 
+          movie.Genre.includes("Family")
+      )
+  )
   };
 
   return (
-    <div className="flex flex-col items-center w-full">
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.5 }}
+      className="flex flex-col items-start  ml-3 lg:items-center w-full  min-h-screen pt-8 pb-5"
+    >
+      
 
-        <div className="mb-4 flex justify-center ">
-          <input 
-            type="text" 
-            placeholder="Search movie"     
-            onChange={(e)=>setSearchTerm(e.target.value)}
-            className="w-96 p-2 border border-black-300 rounded-l-lg focus:outline-none focus:ring-2 focus:ring-black-500"
-          />
-          <button 
-            // onClick={handleSearch}
-            className="p-2 bg-blue-500 text-white rounded-r-lg hover:bg-black-600 transition">
-            Search
-          </button>
-        </div>
       {Object.keys(genreData).map((genre) => {
         const filteredMovies = genreData[genre];
 
         return (
-          
-          
-
-          <div key={genre} className="my-10 w-full max-w-[90%] lg:max-w-[80%] overflow-hidden">
-           
-            <h2 className="text-2xl text-orange-500 font-bold mb-4">{genre} Movies</h2>
-            <div>
-              <Swiper
-                breakpoints={{
-                  320: {
-                    slidesPerView: 2,
-                    spaceBetween: 50,
-                  },
-                  626: {
-                    slidesPerView: 2,
-                    spaceBetween: 40,
-                  },
-                  768: {
-                    slidesPerView: 3,
-                    spaceBetween: 10,
-                  },
-                }}
-                freeMode={true}
-                pagination={{
-                  clickable: true,
-                }}
-                navigation={true}
-                modules={[FreeMode, Pagination, Navigation]}
-                className="mySwiper"
-              >
-                {filteredMovies.map((item, index) => (
-                  <SwiperSlide key={item._id} className="flex justify-center">
-                    <div className="flex flex-col gap-4   group  shadow-lg rounded-xl  w-full lg:h-[400px] lg:w-full overflow-hidden cursor-pointer">
-                      <div className=" ">
-                        <img 
-                          onClick={() => navigate(`/post/${item._id}`)}                          
-                          src={item.Poster} 
-                          className="h-full object-cover w-full" 
-                          alt={`Slide ${index + 1}`} 
-                        />
-                      </div>
+          <motion.div 
+            key={genre}
+            initial={{ y: 50, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{ duration: 0.5 }}
+            className="my-5 w-full max-w-[100%] lg:max-w-[80%] overflow-hidden"
+          >
+            <h2 className="text-2xl lg:text-3xl md:text-3xl text-white font-bold mb-6">{genre} Movies</h2>
+            <Swiper
+              breakpoints={{
+                320: { slidesPerView: 2, spaceBetween: 25 },
+                640: { slidesPerView: 3, spaceBetween: 15 },
+                768: { slidesPerView: 4, spaceBetween: 20 },
+                1024: { slidesPerView: 5, spaceBetween: 25 },
+              }}
+              freeMode={true}
+              pagination={{ clickable: true }}
+              navigation={true}
+              modules={[FreeMode, Pagination, Navigation]}
+              className="mySwiper"
+            >
+              {filteredMovies.map((item) => (
+                <SwiperSlide key={item._id}>
+                  <motion.div 
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                    className="bg-gray rounded-lg shadow-lg overflow-hidden cursor-pointer transform transition duration-300 hover:shadow-xl"
+                    onClick={() => navigate(`/post/${item._id}`)}
+                  >
+                    <img 
+                      src={item.Poster} 
+                      className="w-full h-64 object-cover" 
+                      alt={item.Title} 
+                    />
+                    <div className="p-4">
+                      <h3 className="text-lg font-semibold text-white truncate">{item.Title}</h3>
                     </div>
-                  </SwiperSlide>
-                ))}
-              </Swiper>
-            </div>
-          </div>
+                  </motion.div>
+                </SwiperSlide>
+              ))}
+            </Swiper>
+          </motion.div>
         );
       })}
 
-      {/* Custom Pagination and Navigation Styling */}
       <style jsx>{`
-        .swiper-pagination-bullets {
-          display: flex;
-          justify-content: center;
-          margin-top: 1rem;
-          padding: 10px;
-          border-radius: 10px;
-        }
         .swiper-pagination-bullet {
-          background: white; /* Custom bullet color */
+          background: #CBD5E0;
           opacity: 1;
         }
         .swiper-pagination-bullet-active {
-          background: blue; /* Active bullet color */
-        }
-        .swiper-button-prev {
-          left: 5px; /* Adjust this value to move the button further left */
+          background: #3B82F6;
         }
         .swiper-button-next,
         .swiper-button-prev {
-          color: white; /* Button color */
-          width: 40px; /* Button size */
-          height: 40px; /* Button size */
-          border-radius: 50%; /* Rounded button */
-          background: rgba(0, 0, 0, 1); /* Semi-transparent background */
-        }
-        .swiper-button-next::after,
-        .swiper-button-prev::after {
-          font-size: 25px; /* Icon size */
+          color: #3B82F6;
+          background:black;
+          width: 40px;
+          height: 40px;
+          border-radius: 50%;
+          transition: all 0.3s ease;
         }
         .swiper-button-next:hover,
         .swiper-button-prev:hover {
-          background: rgba(0, 0, 0, 1.5); /* Darker background on hover */
+          background: black;
+          box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+        }
+        .swiper-button-next::after,
+        .swiper-button-prev::after {
+          font-size: 20px;
         }
       `}</style>
-    </div>
+    </motion.div>
   );
 }

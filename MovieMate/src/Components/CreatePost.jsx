@@ -3,10 +3,14 @@ import React,  {useState} from 'react';
 import { backend_Url } from '../config';
 import { useNavigate } from 'react-router-dom';
 
+
+
 const API = import.meta.env.VITE_API_KEY;
 const API1 = import.meta.env.VITE_API_KEY1
 console.log(API)
 console.log(API1)
+console.log(import.meta)
+
 
 function CreatePost() {
   const navigate = useNavigate();
@@ -29,7 +33,7 @@ function CreatePost() {
     const getMovieById = async (imdbID) =>{
         try {
             // Replace with your actual API URL and key
-            const response = await fetch(`https://www.omdbapi.com/?apikey=${API}&i=${imdbID}`);
+            const response = await fetch(`https://www.omdbapi.com/?apikey=${API1}&i=${imdbID}`);
             const data = await response.json();
             setSelectedMovie(data);
             console.log(selectedMovie)
@@ -40,13 +44,12 @@ function CreatePost() {
     const handleSearch = async () => {
       setIsLoading(true);
       try {
-        // Replace with your actual API URL and key
+
         const response = await fetch(`https://www.omdbapi.com/?apikey=${API1}&s=${searchTerm}`);
         const data = await response.json();
         setMovies(data.Search || []);
         console.log(data.Search) 
         setHideForm(true);
-        // Assuming the results are in `data.results`
       } catch (error) {
         console.error('Error fetching the movie data:', error);
       } finally {
@@ -68,7 +71,6 @@ function CreatePost() {
           Family: family,
       };
   
-      console.log("Post Data:", postData);
   
       try {
           const response = await axios.post(`${backend_Url}/createpost`, postData, {
@@ -87,6 +89,13 @@ function CreatePost() {
       }
   }
   
+  const handlekeypress = (e) => {
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      handleSearch();
+    }
+  }
+  
 
   return (
     <div style={{"backgroundColor" : "rgba(0, 5, 19, 0.973)"}} className="min-h-screen flex items-center justify-center mt-20">
@@ -97,6 +106,7 @@ function CreatePost() {
         <div className="mb-4 flex">
           <input 
             type="text" 
+            onKeyDown={handlekeypress}
             placeholder="Search movie to share"     
             onChange={(e)=>setSearchTerm(e.target.value)}
             className="w-full p-2 border border-black-300 rounded-l-lg focus:outline-none focus:ring-2 focus:ring-black-500"
@@ -114,7 +124,7 @@ function CreatePost() {
               <img 
                 src={`${movie.Poster}`} 
                 alt={movie.title} 
-                className="w-full h-48 object-cover rounded-lg"
+                className="w-full h-48 object-top"
               />
               <h2 className="text-lg font-semibold mt-2">{movie.Title}</h2>
               <p className="text-sm text-gray-700 mt-1">Release Date: {movie.Year}</p>

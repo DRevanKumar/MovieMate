@@ -17,7 +17,6 @@ app.use(cors({
 const mongourl=process.env.mongourl
 const secret=process.env.secret
 
-console.log(secret)
 
 mongoose.connect(mongourl)
 
@@ -39,7 +38,9 @@ app.post('/register',async(req,res)=>{
 
 app.post("/login",async(req,res)=>{
     try{
-        const{username,password} = req.body;
+       const  username = req.body.username.trim();
+       const  password = req.body.password.trim();
+
         if(!username || !password){
              return res.status(400).json({
                 message:"username and password required"
@@ -150,8 +151,19 @@ app.get('/movies', async (req, res) => {
         res.status(500).json({ message: "Internal server error" });
     }
 });
+app.get('/movies/:id', async (req, res) => {
+
+    try {
+        const{id}= req.params
+        const Movies = await Post.findById(id);
+        res.json(Movies)
+    } catch (error) {
+        console.error("Error fetching movies:", error);
+        res.status(500).json({ message: "Internal server error" });
+    }
+});
 
 
 app.listen(3000, '0.0.0.0', () => {
-    console.log("Server running at port 3000 on all network interfaces")
+    
   })
