@@ -53,7 +53,7 @@ export default function CardSlider() {
     Family: movies.filter(movie => movie.Genre.includes("Family")),
     Thriller: movies.filter(movie => movie.Genre.includes("Thriller")),
 
-    Others: movies.filter(movie => 
+    Other: movies.filter(movie => 
       !(
           movie.Genre.includes("Action") || 
           movie.Genre.includes("Comedy") || 
