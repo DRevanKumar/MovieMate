@@ -10,6 +10,7 @@ import Layout from './Components/Layout'
 import { MoviesStateContextProvider } from './Components/Moviecontext'
 import Nav from './Components/Navbar'
 import CardSlider from './Components/CardSlider'
+import MoviesByReviewer from './Components/IndividualMovies'
 
 function App() {
   return (
@@ -22,6 +23,8 @@ function App() {
       <Route path='/login' element={<Login/>}></Route>
       <Route path='/CreatePost' element={<CreatePost/>}></Route>
       <Route path='/post/:id' element={<PostPage/>}></Route>
+      <Route path='/moviesByReviewer/:id' element={<MoviesByReviewer/>}></Route>
+
       </Route>
 
     </Routes>

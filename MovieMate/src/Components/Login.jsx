@@ -54,7 +54,7 @@ export default function Login() {
     }
 
     return (
-        <section className="min-h-screen flex items-center justify-center ">
+        <section className="min-h-fit mt-52 flex items-center justify-center ">
             <motion.div 
             initial={{ y: 50, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}

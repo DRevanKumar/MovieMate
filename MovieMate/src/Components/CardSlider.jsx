@@ -22,12 +22,12 @@ export default function CardSlider() {
       try {
         const response = await axios.get(`${backend_Url}/movies`);
         if (Array.isArray(response.data)) {
-          setMovies(response.data);
+          setMovies(response.data.reverse());
         } else {
           console.error("Expected an array, but got:", response.data);
         }
       } catch (error) {
-        console.log("Error fetching post:", error);
+        console.log("Error fetching post:",error);
       } finally {
         setLoading(false);
       }
@@ -39,27 +39,28 @@ export default function CardSlider() {
     <motion.div
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
-      className="flex justify-center items-center h-screen"
+      className="flex justify-center items-baseline h-screen"
     >
       <div className="animate-spin rounded-full h-32 w-32 border-t-2 border-b-2 border-blue-500"></div>
     </motion.div>
   );
 
   const genreData = {
-    Action: movies.filter(movie => movie.Genre.includes("Action")),
+    Action : movies.filter(movie => movie.Genre.includes("Action")),
     Comedy: movies.filter(movie => movie.Genre.includes("Comedy")),
     Horror: movies.filter(movie => movie.Genre.includes("Horror")),
-    Mystery: movies.filter(movie => movie.Genre.includes("Mystery")),
+    Love: movies.filter(movie => movie.Genre.includes("Romance")),
     Family: movies.filter(movie => movie.Genre.includes("Family")),
-    Thriller: movies.filter(movie => movie.Genre.includes("Thriller")),
+    Thriller: movies.filter(movie => movie.Genre.includes("Thriller,Mystery")),
 
     Others: movies.filter(movie => 
       !(
           movie.Genre.includes("Action") || 
           movie.Genre.includes("Comedy") || 
           movie.Genre.includes("Horror") || 
-          movie.Genre.includes("Mystery") || 
-          movie.Genre.includes("Family")
+          movie.Genre.includes("Romance") || 
+          movie.Genre.includes("Family")  ||
+          movie.Genre.includes("Mystery,Thriller")
       )
   )
   };

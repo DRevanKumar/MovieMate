@@ -2,7 +2,7 @@ import React, { createContext, useState } from 'react';
 export const MoviesStateContext = createContext();
 
 export const MoviesStateContextProvider= ({ children }) =>{
-        const[movies,setMovies] = useState('');
+        const[movies,setMovies] = useState([]);
 
 
         return(

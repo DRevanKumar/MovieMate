@@ -5,6 +5,8 @@ import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { backend_Url } from "../config";
 import { motion } from "framer-motion";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export function PostPage() {
     const { id } = useParams();
@@ -44,13 +46,15 @@ export function PostPage() {
             });
 
             if (response.status === 200) {
+                toast.success('Post Deleted Successful!');
+
                 console.log("Movie deleted successfully!");
                 navigate('/');
             } else {
-                alert("Failed to delete the movie.");
+                toast.error("Failed to Delete post")
             }
         } catch (error) {
-            alert("Error: " + error.response.data.message || "Failed to delete the movie.");
+            toast.error("Error: " + error.response.data.message || "Failed to delete the movie.");
         }
     };
 
@@ -96,7 +100,20 @@ export function PostPage() {
                         Delete Movie
                     </button>
                 )}
+                
             </div>
+            <ToastContainer
+                position="top-left"
+                autoClose={7000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+                theme="light"
+            />
         </motion.div>
     );
 }
