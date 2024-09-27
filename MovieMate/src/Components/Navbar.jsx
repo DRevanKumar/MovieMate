@@ -23,6 +23,13 @@ const Nav = () => {
     }
   }, [token]);
 
+
+  const HandleRedirect=()=>{
+    navigate('/');
+    setOpen(false)
+  }
+
+
   const handleLinkClick = (event, link) => {
     event.preventDefault();
     if (link === "Logout") {
@@ -53,7 +60,7 @@ const Nav = () => {
           <span className='text-3xl text-zinc-300 mr-2 flex items-center'>
             <ion-icon name="videocam-sharp"></ion-icon>
           </span>
-          <p onClick={() => { navigate('/') }} className="flex items-center">MovieMate</p>
+          <p onClick={() => HandleRedirect()} className="flex items-center">MovieMate</p>
         </motion.div>
 
 

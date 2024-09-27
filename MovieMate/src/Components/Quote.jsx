@@ -3,7 +3,7 @@ import { motion } from 'framer-motion';
 
 const Quote = () => {
   return (
-    <div className="w-full lg:pt-16 pt-14 ms:pt-24 px-4 sm:px-6 lg:px-8">
+    <div className="w-full lg:pt-12 pt-14 ms:pt-24 px-4 sm:px-6 lg:px-8">
       <motion.div 
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}

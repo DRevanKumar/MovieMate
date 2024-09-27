@@ -9,16 +9,18 @@ import "swiper/css/pagination";
 import "swiper/css/free-mode";
 import "swiper/css/navigation";
 import { MoviesStateContext } from "./Moviecontext";
+import Search from "./Searchbar";
 
-export default function MoviesByReviewer() {
+export default function Movies() {
     const { id } = useParams();
     const navigate = useNavigate();
     const [loading, setLoading] = useState(true);
+
     const { movies, setMovies } = useContext(MoviesStateContext);
 
     useEffect(() => {
         if (movies.length > 0) {
-            setLoading(false); 
+            setLoading(false);
         }
     }, [movies]);
 
@@ -58,17 +60,23 @@ export default function MoviesByReviewer() {
     };
 
     return (
+        <>
+        <div className="flex z-10 relative mt-24  justify-center items-center">
+        <Search ></Search>
+        </div>
+
         <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.5 }}
-            className="flex flex-col items-start ml-3 lg:items-center w-full min-h-screen mt-28 pb-5"
+            className="flex fixed flex-col items-start ml-3 lg:items-center w-full min-h-screen mt-24 pb-5"
         >
                 <h2 className="text-3xl lg:text-4xl md:text-3xl text-white font-bold mb-3">Movies By {id}</h2>
                 {Object.entries(genreData).map(([genre, filteredMovies]) => {
                 if (filteredMovies.length === 0) return null;
 
                 return (
+
                     <motion.div
                         key={genre}
                         initial={{ y: 50, opacity: 0 }}
@@ -142,5 +150,8 @@ export default function MoviesByReviewer() {
                 }
             `}</style>
         </motion.div>
+        </>
+
     );
+
 }

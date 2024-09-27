@@ -23,7 +23,7 @@ function App() {
       <Route path='/login' element={<Login/>}></Route>
       <Route path='/CreatePost' element={<CreatePost/>}></Route>
       <Route path='/post/:id' element={<PostPage/>}></Route>
-      <Route path='/moviesByReviewer/:id' element={<MoviesByReviewer/>}></Route>
+      <Route path='/movies/:id' element={<MoviesByReviewer/>}></Route>
 
       </Route>
 

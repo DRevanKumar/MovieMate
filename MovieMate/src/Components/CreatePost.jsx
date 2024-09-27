@@ -2,6 +2,8 @@ import axios from 'axios';
 import React,  {useState} from 'react';
 import { backend_Url } from '../config';
 import { useNavigate } from 'react-router-dom';
+import { motion } from 'framer-motion';
+
 
 
 
@@ -22,8 +24,9 @@ function CreatePost() {
     const [shared,setShared] = useState('')
     const[ott,setOtt]= useState('')
     const [family,setFamily] = useState('')
-    const [isOpen, setIsOpen] = useState(false);
-    const [selectedItem, setSelectedItem] = useState("Movies By");
+    const [loading,setLoading]= useState(false)
+  
+    
 
     const getApi=()=>{
       const keys=[API1,API2]
@@ -31,19 +34,10 @@ function CreatePost() {
     }
 
 
-    const toggleDropdown = () => {
-      setIsOpen(!isOpen);
-      
     
-    };
   
-    const handleItemClick = (item) => {
-        setShared(item)
-        setSelectedItem(item)
-      setIsOpen(false);
-    };
+    
 
-    const options = ["Revan", "Sumanth", "Guna","Bharath","Varun","John"];
 
 
     const handleMovieClick = (imdbID) =>{
@@ -77,6 +71,7 @@ function CreatePost() {
     }
 
     async function HandlePost() {
+      setLoading(!loading)
       const postData = {
           Title: selectedMovie.Title,
           Poster: selectedMovie.Poster,
@@ -101,8 +96,9 @@ function CreatePost() {
   
           if (response.status === 200) {
               const id = response.data._id;
-              
-              navigate(`/post/${id}`);
+              setLoading(!loading)
+
+                navigate(`/post/${id}`);
           }
       } catch (e) {
           console.log("Error during post:", e);
@@ -115,6 +111,16 @@ function CreatePost() {
       handleSearch();
     }
   }
+
+  if (loading) return (
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      className="flex justify-center items-center mt-48 top-1/2"
+    >
+      <div className="animate-spin top-1/2 mt-48 rounded-full h-32 w-32 border-t-2 border-b-2 border-blue-500"></div>
+    </motion.div>
+  );
   
 
   return (
@@ -216,49 +222,16 @@ function CreatePost() {
 
               ></textarea>
             </div>
-            <div className="relative   right-1 pb-5  text-center">
-      <div>
-        <button
-          onClick={toggleDropdown}
-          className="flex justify-enter w-max rounded-md border border-gray-300  bg-gray-700 shadow-sm px-4 py-2  text-sm font-medium text-white  focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-300"
-          aria-expanded={isOpen}
-          aria-haspopup="true"
-        >
-          {selectedItem}
-          <svg
-            className="-mr-1 ml-2 h-5 w-5"
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 20 20"
-            fill="currentColor"
-            aria-hidden="true"
-          >
-            <path
-              fillRule="evenodd"
-              d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-              clipRule="evenodd"
-            />
-          </svg>
-        </button>
-      </div>
-
-      {isOpen && (
-        <div  id="dropdown" className=" absolute z-10 mt-2 w-full min-h-40 max-h-6 overflow-scroll rounded-md bg-white shadow-lg">
-          <div className="py-1" role="menu"  aria-orientation="vertical" aria-labelledby="options-menu">
-            {options.map((option, index) => (
-              <button
-                key={index}
-                value={option}
-                onChange={()=>setShared(option)}
-                onClick={() => handleItemClick(option)}
-                className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 w-full text-left"
-              >
-                {option}
-              </button>
-            ))}
-          </div>
-        </div>
-      )}
-    </div>
+           
+      <div className="mb-2">
+              <label className="block text-sm font-medium text-gray-700">Shared By</label>
+              <input 
+                type="text" 
+                onChange={e=> setShared(e.target.value)}
+                value={shared}
+                className="w-full p-2 border border-black-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-black-500"
+              />
+            </div>
             
             <div className="mb-4">
               <label className="block text-sm font-medium text-gray-700">Ott Platforms</label>
@@ -288,6 +261,8 @@ function CreatePost() {
         </button>}
       </div>
     </div>
+    
+    
   );
 }
 

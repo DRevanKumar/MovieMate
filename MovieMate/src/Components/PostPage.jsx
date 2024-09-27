@@ -14,6 +14,7 @@ export function PostPage() {
     const [loading, setLoading] = useState(true);
     const token = localStorage.getItem('token');
     const navigate = useNavigate();
+    const[deleteLoader,setDeleteLoader] = useState(false)
 
     useEffect(() => {
         async function fetchPost() {
@@ -33,6 +34,8 @@ export function PostPage() {
     if (!movie) return <div className="text-center mt-10">Movie not found</div>;
 
     const handleDelete = async () => {
+
+        setDeleteLoader(true)
         if (!token) {
             alert("Unauthorized: No token found.");
             return;
@@ -46,17 +49,26 @@ export function PostPage() {
             });
 
             if (response.status === 200) {
-                toast.success('Post Deleted Successful!');
+                setDeleteLoader(!deleteLoader)
 
-                console.log("Movie deleted successfully!");
-                navigate('/');
+                setTimeout(()=>navigate('/'),200);
             } else {
-                toast.error("Failed to Delete post")
+                alert("failed to delete")
             }
         } catch (error) {
-            toast.error("Error: " + error.response.data.message || "Failed to delete the movie.");
+            
         }
     };
+
+    if (deleteLoader) return (
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          className="flex justify-center items-center mt-48 top-1/2"
+        >
+          <div className="animate-spin top-1/2 mt-48 rounded-full h-32 w-32 border-t-2 border-b-2 border-blue-500"></div>
+        </motion.div>
+      );
 
     return (
         <motion.div 
@@ -102,18 +114,7 @@ export function PostPage() {
                 )}
                 
             </div>
-            <ToastContainer
-                position="top-left"
-                autoClose={7000}
-                hideProgressBar={false}
-                newestOnTop={false}
-                closeOnClick
-                rtl={false}
-                pauseOnFocusLoss
-                draggable
-                pauseOnHover
-                theme="light"
-            />
+           
         </motion.div>
     );
 }

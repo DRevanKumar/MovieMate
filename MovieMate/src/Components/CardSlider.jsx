@@ -51,7 +51,7 @@ export default function CardSlider() {
     Horror: movies.filter(movie => movie.Genre.includes("Horror")),
     Love: movies.filter(movie => movie.Genre.includes("Romance")),
     Family: movies.filter(movie => movie.Genre.includes("Family")),
-    Thriller: movies.filter(movie => movie.Genre.includes("Thriller,Mystery")),
+    Thriller: movies.filter(movie => movie.Genre.includes("Thriller")),
 
     Other: movies.filter(movie => 
       !(
@@ -60,7 +60,7 @@ export default function CardSlider() {
           movie.Genre.includes("Horror") || 
           movie.Genre.includes("Romance") || 
           movie.Genre.includes("Family")  ||
-          movie.Genre.includes("Mystery,Thriller")
+          movie.Genre.includes("Thriller")
       )
   )
   };
