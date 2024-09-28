@@ -1,3 +1,8 @@
+
+<head>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1449278693756025"
+     crossorigin="anonymous"></script>
+</head>
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { backend_Url } from "../config";
