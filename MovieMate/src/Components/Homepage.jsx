@@ -1,3 +1,8 @@
+<head>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1449278693756025"
+     crossorigin="anonymous"></script>
+</head>
+
 import Nav from "./Navbar";
 import Quote from "./Quote";
 import CardSlider from "./CardSlider";
