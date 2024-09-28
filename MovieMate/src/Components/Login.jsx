@@ -59,6 +59,13 @@ export default function Login() {
     }
 
     return (
+        <>
+        <Helmet>
+        <head>
+        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1449278693756025"
+            crossorigin="anonymous"></script>
+        </head>
+        </Helmet>
         <section className="min-h-fit mt-52 flex items-center justify-center ">
             <motion.div 
             initial={{ y: 50, opacity: 0 }}
@@ -133,5 +140,6 @@ export default function Login() {
                 theme="light"
             />
         </section>
+        </>
     )
 }

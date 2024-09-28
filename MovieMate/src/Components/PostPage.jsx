@@ -77,6 +77,27 @@ export function PostPage() {
       );
 
     return (
+        <>
+        <Helmet>
+        <head>
+        <title>{movie} - Review and Ratings | MovieMate</title>
+                <meta name="description" content="Read reviews and ratings for {movie}, a mind-bending thriller by Christopher Nolan. Share your thoughts on MovieMate." />
+                <meta name="keywords" content="{movie} review, movie reviews, thriller movies, MovieMate, Christopher Nolan, film ratings" />
+
+                <meta property="og:title" content="{movie} - Review and Ratings" />
+                <meta property="og:description" content="Check out reviews for {movie}, the thriller directed by Christopher Nolan. Write your review on MovieMate." />
+                <meta property="og:image" content="" />
+                <meta property="og:url" content="" />
+                <meta property="og:type" content="article" />
+
+                <meta name="twitter:card" content="summary_large_image" />
+                <meta name="twitter:title" content="{movie} - Review and Ratings" />
+                <meta name="twitter:description" content="Read reviews for {movie}, the mind-bending thriller, and share your thoughts on MovieMate." />
+                <meta name="twitter:image" content="" />
+        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1449278693756025"
+            crossorigin="anonymous"></script>
+        </head>
+        </Helmet>
         <motion.div 
             initial={{ y: 50, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
@@ -122,5 +143,6 @@ export function PostPage() {
             </div>
            
         </motion.div>
+        </>
     );
 }
