@@ -69,9 +69,9 @@ export default function Movies() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.5 }}
-            className="flex fixed flex-col items-start ml-3 lg:items-center w-full min-h-screen mt-24 pb-5"
+            className="flex  flex-col items-start ml-3 lg:items-center w-full min-h-screen mt-24 pb-5"
         >
-                <h2 className="text-3xl lg:text-4xl md:text-3xl text-white font-bold mb-3">Movies By {id}</h2>
+                <h2 className="text-3xl lg:text-4xl md:text-3xl text-white font-bold mb-3">{id}'s WatchList</h2>
                 {Object.entries(genreData).map(([genre, filteredMovies]) => {
                 if (filteredMovies.length === 0) return null;
 
