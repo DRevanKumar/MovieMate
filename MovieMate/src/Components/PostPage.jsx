@@ -1,3 +1,9 @@
+<head>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1449278693756025"
+     crossorigin="anonymous"></script>
+</head>
+
+
 import { useContext, useEffect, useState } from "react";
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
