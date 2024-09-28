@@ -10,6 +10,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import axios from 'axios';
 import { motion } from 'framer-motion';
+import AdSenseScript from "./AdSen";
 
 
 export default function Login() {
@@ -60,12 +61,8 @@ export default function Login() {
 
     return (
         <>
-        <Helmet>
-        <head>
-        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1449278693756025"
-            crossorigin="anonymous"></script>
-        </head>
-        </Helmet>
+        <AdSenseScript></AdSenseScript>
+        
         <section className="min-h-fit mt-52 flex items-center justify-center ">
             <motion.div 
             initial={{ y: 50, opacity: 0 }}

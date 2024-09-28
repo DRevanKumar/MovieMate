@@ -1,10 +1,12 @@
 
+
 import axios from 'axios';
 import React,  {useState} from 'react';
 import { backend_Url } from '../config';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { Helmet } from 'react-helmet-async';
+import AdSenseScript from './AdSen';
 
 
 
@@ -127,12 +129,8 @@ function CreatePost() {
 
   return (
     <>
-    <Helmet>
-    <head>
-      <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1449278693756025"
-        crossorigin="anonymous"></script>
-    </head>
-    </Helmet>
+    <AdSenseScript></AdSenseScript>
+    
     <div  className="min-h-fit mt-64 flex items-center justify-center ">
       <div className=" min-h-fit w-full max-w-xl p-6 bg-white rounded-lg shadow-lg">
         <h1 className="text-xl font-semibold text-center mb-4">Create Post</h1>

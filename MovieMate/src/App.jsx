@@ -11,16 +11,13 @@ import { MoviesStateContextProvider } from './Components/Moviecontext'
 import Nav from './Components/Navbar'
 import CardSlider from './Components/CardSlider'
 import MoviesByReviewer from './Components/IndividualMovies'
+import { Helmet } from 'react-helmet-async'
+import AdSenseScript from './Components/AdSen'
 
 function App() {
   return (
     <>
-    <Helmet>
-    <head>
-      <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1449278693756025"
-        crossorigin="anonymous"></script>
-    </head>
-    </Helmet>
+    <AdSenseScript></AdSenseScript>
      
 
 

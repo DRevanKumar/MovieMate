@@ -1,7 +1,4 @@
-<head>
-  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1449278693756025"
-     crossorigin="anonymous"></script>
-</head>
+
 
 import React, { useContext, useEffect, useState } from "react";
 import { motion } from "framer-motion";
@@ -15,6 +12,7 @@ import "swiper/css/free-mode";
 import "swiper/css/navigation";
 import { MoviesStateContext } from "./Moviecontext";
 import Search from "./Searchbar";
+import AdSenseScript from "./AdSen";
 
 export default function Movies() {
     const { id } = useParams();
@@ -66,12 +64,8 @@ export default function Movies() {
 
     return (
         <>
-        <Helmet>
-        <head>
-        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1449278693756025"
-            crossorigin="anonymous"></script>
-        </head>
-        </Helmet>
+        <AdSenseScript></AdSenseScript>
+       
         <div className="flex z-10 relative mt-24  justify-center items-center">
         <Search ></Search>
         </div>

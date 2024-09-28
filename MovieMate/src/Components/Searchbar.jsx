@@ -20,7 +20,6 @@ export default function Search() {
         const handleItemClick = (item) => {
             setSelectedItem(item)
           navigate(`/movies/${item}`)
-          console.log(movies)
           setIsOpen(false);
         };
 
