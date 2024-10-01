@@ -58,7 +58,7 @@ const Nav = () => {
           className='font-bold text-2xl cursor-pointer flex items-center text-white'
         >
           <span className='text-3xl text-zinc-300 mr-2 flex items-center'>
-            <ion-icon name="videocam-sharp"></ion-icon>
+            <ion-icon name="videocam"></ion-icon>
           </span>
           <p onClick={() => HandleRedirect()} className="flex items-center">MovieMate</p>
         </motion.div>
