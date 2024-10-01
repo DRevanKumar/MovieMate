@@ -49,15 +49,15 @@ export default function Movies() {
         Horror: moviesByReviewer.Films.filter(movie => movie.Genre.includes("Horror")),
         Love: moviesByReviewer.Films.filter(movie => movie.Genre.includes("Romance")),
         Family: moviesByReviewer.Films.filter(movie => movie.Genre.includes("Family")),
-        Thriller: moviesByReviewer.Films.filter(movie => movie.Genre.includes("Thriller,Mystery")),
-        Others: moviesByReviewer.Films.filter(movie =>
+        Thriller: moviesByReviewer.Films.filter(movie => movie.Genre.includes("Thriller")),
+        Other: moviesByReviewer.Films.filter(movie =>
             !(
                 movie.Genre.includes("Action") ||
                 movie.Genre.includes("Comedy") ||
                 movie.Genre.includes("Horror") ||
                 movie.Genre.includes("Romance") ||
                 movie.Genre.includes("Family") ||
-                movie.Genre.includes("Mystery,Thriller")
+                movie.Genre.includes("Thriller")
             )
         )
     };
