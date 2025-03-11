@@ -85,7 +85,7 @@ export default function CardSlider() {
         return (
           <motion.div 
             key={genre}
-            initial={{ y: 50, opacity: 0 }}
+            initial={{ y: 0, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ duration: 0.5 }}
             className="my-5 w-full max-w-[100%] lg:max-w-[80%] overflow-hidden"
