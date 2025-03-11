@@ -98,7 +98,7 @@ export default function Search() {
 
       {isOpen && (
         <div className="absolute z-10 mt-10 w-full rounded-md bg-gray-700 shadow-lg">
-          <div className="py-1 h-40 overflow-scroll "role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
+          <div className="py-1 max-h-[160px] overflow-y-auto overflow-scroll "role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
             {options.map((option, index) => (
               <button
                 key={index}

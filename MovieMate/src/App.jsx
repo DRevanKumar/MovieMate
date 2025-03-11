@@ -13,6 +13,7 @@ import CardSlider from './Components/CardSlider'
 import MoviesByReviewer from './Components/IndividualMovies'
 import { Helmet } from 'react-helmet-async'
 import AdSenseScript from './Components/AdSen'
+import GenreMovies from './Components/GenreMovies'
 
 function App() {
   return (
@@ -28,6 +29,7 @@ function App() {
       <Route path='/CreatePost' element={<CreatePost/>}></Route>
       <Route path='/post/:id' element={<PostPage/>}></Route>
       <Route path='/movies/:id' element={<MoviesByReviewer/>}></Route>
+      <Route path='/genre/:genre' element={<GenreMovies/>}></Route>
 
       </Route>
 
