@@ -150,23 +150,23 @@ export default function Search() {
       
 
       <AnimatePresence>
-        {filteredMovie && (
+        {searchTerm.length!=0 && (
           <motion.div
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
             transition={{ duration: 0.3 }}
-            className="absolute  h-80 ml-5 overflow-scroll transform -translate-x-1/2 min-w-full bg-gray-800 z-50 rounded  right-0 top-12 p-4"
+            className="absolute  h-80 ml-5 overflow-scroll transform -translate-x-1/2 min-w-full bg-gray-800   z-50 rounded  right-0 top-12 p-4"
           >
             <div className="flex justify-between items-center p-2">
               <h2 className="text-white">Results:</h2>
-              <button onClick={() => setFilteredMovie(false)} className="text-white ">
+              <button onClick={() => setSearchTerm("")} className="text-white ">
                 <ion-icon name="close-circle-outline" className="text-3xl p-2"></ion-icon>
               </button>
             </div>
             <div className="flex flex-wrap gap-4">
               {filteredMovies.map((movie) => (
-                <div key={movie.Title} className="bg-gray-100 flex flex-col  items-center shadow-md cursor-pointer w-full">
+                <div key={movie.Title} className="bg-gray-800 flex flex-col  items-center shadow-md cursor-pointer w-full">
                   <img
                     src={`${movie.Poster}`}
                     alt={movie.Title}
@@ -175,7 +175,7 @@ export default function Search() {
                   />
                   <p 
                     onClick={() => navigate(`/post/${movie._id}`)} 
-                    className="flex text-lg font-semibold mt-2 justify-center text-center"
+                    className="flex text-lg font-semibold mt-2 justify-center text-center text-white"
                   >
                     {movie.Title}
                   </p>
