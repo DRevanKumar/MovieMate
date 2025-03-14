@@ -126,7 +126,7 @@ export default function Search() {
             type="text"
             onKeyDown={handleKeyPress}
             placeholder="Search movie"
-            onChange={(e) => setSearchTerm(e.target.value)}
+            onChange={(e) => setSearchTerm(e.target.value.trim())}
             className="w-[120%] sm:w-[800px] md:w-[500px] p-2 text-sm border border-gray-600 bg-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-300"
           />
         </AnimatePresence>
