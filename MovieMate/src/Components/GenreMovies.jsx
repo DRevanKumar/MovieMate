@@ -36,7 +36,7 @@ export default function GenrePage() {
 
 
   return (
-    <div className="min-h-fit bg-gray-900 text-white p-5">
+    <div className="min-h-fit  text-white p-5">
       <h1 className="text-3xl font-bold mt-12 mb-5 text-center">{genre} Movies</h1>
 
       {filteredMovies.length === 0 ? (
