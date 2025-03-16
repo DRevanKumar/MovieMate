@@ -29,6 +29,7 @@ function CreatePost() {
     const[ott,setOtt]= useState('')
     const [family,setFamily] = useState('')
     const [loading,setLoading]= useState(false)
+    const user = localStorage.getItem('username')
   
     
 
@@ -84,7 +85,7 @@ function CreatePost() {
           Runtime: selectedMovie.Runtime,
           Plot: selectedMovie.Plot,
           YourReview: yourReview,
-          SharedBy: shared,
+          SharedBy: user,
           Ott: ott,
           Family: family,
       };
@@ -100,6 +101,7 @@ function CreatePost() {
   
           if (response.status === 200) {
               const id = response.data._id;
+              console.log("Post created with ID:", id);
               setLoading(!loading)
 
                 navigate(`/post/${id}`);
@@ -234,8 +236,8 @@ function CreatePost() {
               <label className="block text-sm font-medium text-gray-700">Shared By</label>
               <input 
                 type="text" 
-                onChange={e=> setShared(e.target.value)}
-                value={shared}
+                
+                value={user}
                 className="w-full p-2 border border-black-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-black-500"
               />
             </div>

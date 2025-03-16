@@ -11,6 +11,7 @@ export default function Search() {
         const [filteredMovie, setFilteredMovie] = useState(false);
         const { movies } = useContext(MoviesStateContext);
         const debouncevalue=useDebounce(searchTerm,500)
+        const user= localStorage.getItem('username')
 
       
         const toggleDropdown = () => {
@@ -23,7 +24,9 @@ export default function Search() {
           setIsOpen(false);
         };
 
-        const options = [...new Set(movies.map(movie=>movie.SharedBy))];
+        const options = [...new Set(movies
+
+          .map(movie=>movie.SharedBy))];
         
 
       
@@ -44,11 +47,19 @@ export default function Search() {
       }
 
 
-  const filteredMovies = debouncevalue.length > 0 
-  ? Object.values(movies).filter(movie => 
-      movie.Title.toLowerCase().includes(debouncevalue.toLowerCase())
-    )
-  : [];
+      const filteredMovies =
+      debouncevalue.length > 0
+        ? Object.values(movies)
+            .filter((movie) =>
+              movie.Title.toLowerCase().includes(debouncevalue.toLowerCase())
+            )
+            .reduce((acc, current) => {
+              if (!acc.some((m) => m.Title.toLowerCase() === current.Title.toLowerCase())) {
+                acc.push(current);
+              }
+              return acc;
+            }, [])
+        : [];
 
 
 
@@ -100,6 +111,7 @@ export default function Search() {
         <div className="absolute z-10 mt-10 w-full rounded-md bg-gray-700 shadow-lg">
           <div className="py-1 max-h-[160px] overflow-y-auto overflow-scroll "role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
             {options.map((option, index) => (
+              (option!= user&& option!="") && (
               <button
                 key={index}
                 value={option}
@@ -108,6 +120,7 @@ export default function Search() {
               >
                 {option}
               </button>
+              )
             ))}
           </div>
         </div>

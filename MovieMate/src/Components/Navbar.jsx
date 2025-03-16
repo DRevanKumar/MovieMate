@@ -8,13 +8,16 @@ const Nav = () => {
   const navigate = useNavigate();
   const [open, setOpen] = useState(false);
   const token = localStorage.getItem('token');
+  const user=localStorage.getItem('username')
   
 
   useEffect(() => {
     if (token) {
       setLinks([
-        { name: "Create Post", link: "/CreatePost" },
-        { name: "Logout", link: '/' },
+        { name: "My Reviews", link: `/movies/${user}` },
+        { name: "Write a Review", link: "/CreatePost" },
+        { name: "Logout", link: '/' },  
+        
       ]);
     } else {
       setLinks([
@@ -35,11 +38,16 @@ const Nav = () => {
     if (link === "Logout") {
       localStorage.removeItem('token');
       navigate('/');
-    } else if (link === "Create Post") {
+    } else if (link === "Write a Review") {
       navigate('/CreatePost');
     } else if (link === "Login") {
       navigate("/login");
-    } else {
+
+    }else if(link === "My Reviews"){
+      navigate(`/movies/${user}`);
+    }
+    
+    else {
       navigate("/");
     }
     setOpen(false);

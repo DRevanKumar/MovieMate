@@ -18,11 +18,20 @@ const mongourl=process.env.mongourl
 const secret=process.env.secret
 
 
-mongoose.connect(mongourl)
+mongoose.connect(mongourl).then(() => console.log('Connected to MongoDB'))
+.catch(err => console.error('MongoDB connection error:', err));
 
 app.post('/register',async(req,res)=>{
     try{
         const{username,password} = req.body
+        if(!username || !password){
+            return res.status(400).json({error:"username and password required"});
+        }
+
+        const Existinguser= await User.findOne({username})
+        if(Existinguser){
+            return res.status(400).json({error:"username already exists"})
+        }
         const user=await User.create({
             username,
             password
@@ -52,7 +61,9 @@ app.post("/login",async(req,res)=>{
         }
         if(password===user.password){
             const token= jsonwebtoken.sign({id:user._id},secret);
-            res.json({token})
+            res.json({token,username:user.username})
+        }else{
+            return res.status(411).json({message:"incorrect password"})
         }
     }
     catch(e){
@@ -95,9 +106,31 @@ app.post('/createpost',async(req,res)=>{
         })
     }
     catch(e){
+        console.error('Error in /createpost:', e.message);
+
         res.status(500).json({error:e.message})
     }
 })
+
+app.put("/update/:id", async (req, res) => {
+    const { id } = req.params;
+    const updatedData = req.body;
+    
+  
+    try {
+      const updatedPost = await Post.findByIdAndUpdate(id, updatedData, {
+        new: true, 
+      });
+  
+      if (!updatedPost) {
+        return res.status(404).json({ message: "Post not found" });
+      }
+  
+      res.status(200).json(updatedPost);
+    } catch (error) {
+      res.status(500).json({ message: "Error updating post", error });
+    }
+  });
 
 app.get('/createpost/:id',async (req,res)=>{
     try{

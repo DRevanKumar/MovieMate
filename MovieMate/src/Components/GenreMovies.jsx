@@ -30,7 +30,12 @@ export default function GenrePage() {
             movie.Genre.includes("Thriller")
           )
         )
-      : movies.filter(movie => movie.Genre.includes(filterGenre));
+      : movies.filter(movie => movie.Genre.includes(filterGenre)).reduce((acc, current) => {
+        if (!acc.some((m) => m.Title.toLowerCase() === current.Title.toLowerCase())) {
+          acc.push(current);
+        }
+        return acc;
+      }, [])
   
   
 

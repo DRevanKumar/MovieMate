@@ -42,7 +42,7 @@ export default function CardSlider() {
     <motion.div
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
-      className="flex justify-center items-baseline h-screen"
+      className="flex justify-center items-center h-screen"
     >
       <div className="animate-spin rounded-full h-32 w-32 border-t-2 border-b-2 border-blue-500"></div>
     </motion.div>
@@ -80,7 +80,12 @@ export default function CardSlider() {
 
       {Object.entries(genreData).map(([genre,movies]) => {
         if(movies.length===0) return null
-        const filteredMovies = genreData[genre];
+        const filteredMovies = genreData[genre].reduce((acc, current) => {
+          if (!acc.some((m) => m.Title.toLowerCase() === current.Title.toLowerCase())) {
+            acc.push(current);
+          }
+          return acc;
+        }, [])
 
         return (
           <motion.div 
@@ -128,7 +133,7 @@ export default function CardSlider() {
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
                     className="bg-gray rounded-lg shadow-lg overflow-hidden cursor-pointer transform transition duration-300 hover:shadow-xl"
-                    onClick={() => navigate(`/post/${item._id}`)}
+                    onClick={() => navigate(`/movie/${item.Title}`)}
                   >
                     <img 
                       src={item.Poster} 

@@ -13,18 +13,17 @@ import { motion } from 'framer-motion';
 import AdSenseScript from "./AdSen";
 
 
-
-export default function Login() {
+export default function Signup() {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
 
-    const handleSignup = () => {
-        navigate("/signup");
+    const handleNavigate = () =>{
+        navigate("/login");
     }
 
-    const handleLogin = async (e) => {
+    const handleSignup = async (e) => {
         e.preventDefault();
         if (loading) return;
 
@@ -33,26 +32,20 @@ export default function Login() {
             const trimmedUsername = username.trim();
             const trimmedPassword = password.trim();
 
-            const response = await axios.post(`${backend_Url}/login`, {
+            const response = await axios.post(`${backend_Url}/register`, {
                 username: trimmedUsername,
                 password: trimmedPassword
             });
-            console.log(response.data);
-
-            if(response.data.password!=trimmedPassword){
-
-            }
 
             if (response.status === 200) {
                 localStorage.setItem('token', response.data.token);
                 localStorage.setItem('username', response.data.username);
-                toast.success('Login Successful!');
+                toast.success('Signup Successful!');
                 setTimeout(() => {
                     navigate("/");
                 }, 2000);
             }
         } catch (e) {
-        
             if (e.response?.status === 404) {
                 toast.error('User not found. Please check your username.');
             } else if (e.response?.status === 411) {
@@ -66,8 +59,8 @@ export default function Login() {
     }
 
     const handleKeyPress = (e) => {
-        if (e.key === 'Enter'&& !loading) {
-            handleLogin(e);
+        if (e.key === 'Enter') {
+            handleSignup(e);
         }
     }
 
@@ -82,18 +75,18 @@ export default function Login() {
             transition={{ duration: 0.5 }}
             className="flex flex-col items-center justify-center pt-0  mx-auto lg:py-0 w-full max-w-md">
                 <h1 className="flex items-center mb-6 text-4xl font-bold text-white dark:text-white">
-                    Login
+                    Signup
                 </h1>
                 <div className="w-full bg-gray-300 rounded-lg shadow-md dark:bg-gray-800 dark:border-gray-700">
                     <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
-                        <form onSubmit={handleLogin} className="space-y-4 md:space-y-6">
+                        <form onSubmit={handleSignup} className="space-y-4 md:space-y-6">
                             <div>
                                 <label className="block mb-1 text-sm font-medium text-gray-900 dark:text-white" htmlFor="user_identifier">Your Username</label>
                                 <input
                                     type="text"
                                     id="user_identifier"
                                     value={username}
-                                    onChange={e => setUsername(e.target.value)}
+                                    onChange={e => setUsername(e.target.value.trim())}
                                     onKeyDown={handleKeyPress}
                                     className="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                     placeholder="Username"
@@ -108,7 +101,7 @@ export default function Login() {
                                     type="password"
                                     id="access_code"
                                     value={password}
-                                    onChange={e => setPassword(e.target.value)}
+                                    onChange={e => setPassword(e.target.value.trim())}
                                     onKeyDown={handleKeyPress}
                                     className="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                     placeholder="Password"
@@ -118,13 +111,13 @@ export default function Login() {
                                 />
                                 
                             </div>
-                            <p className="text-white">Create Account? <span onClick={handleSignup} className="text-blue-400 cursor-pointer underline">Signup</span></p>
+                            <p className="text-white">Already have an account? <span onClick={handleNavigate} className="text-blue-400 cursor-pointer underline">login</span></p>
                             <button
                                 type="submit"
                                 className={`w-full text-white bg-sky-700 hover:bg-sky-800 focus:ring-4 focus:outline-none focus:ring-sky-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-sky-600 dark:hover:bg-sky-700 dark:focus:ring-sky-800 ${loading ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'}`}
                                 disabled={loading}
                             >
-                                {loading ? 'Signing in...' : 'Sign in'}
+                                {loading ? 'Signing up...' : 'Sign up'}
                             </button>
                         </form>
                         {loading && (

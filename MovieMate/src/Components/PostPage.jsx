@@ -14,12 +14,14 @@ import { motion } from "framer-motion";
 
 import { Helmet } from "react-helmet-async";
 import AdSenseScript from "./AdSen";
+const user = localStorage.getItem('username');
 
 export function PostPage() {
     const { id } = useParams();
     const [movie, setMovie] = useState(null);
     const [loading, setLoading] = useState(true);
     const token = localStorage.getItem('token');
+    const user = localStorage.getItem('username');
     const navigate = useNavigate();
     const[deleteLoader,setDeleteLoader] = useState(false)
 
@@ -36,6 +38,11 @@ export function PostPage() {
         }
         fetchPost();
     }, [id]);
+
+    const navigateToPost=()=>{
+        navigate('/addreview', { state: movie });
+      }
+    
 
     if (loading) return <div className="text-center mt-10">Loading...</div>;
     if (!movie) return <div className="text-center mt-10">Movie not found</div>;
@@ -95,33 +102,45 @@ export function PostPage() {
             </div>
             <div className="md:w-2/3 md:pl-6">
                 <h1 className="text-2xl md:text-3xl font-bold text-white mb-2">{movie.Title}</h1>
-                <p className="text-lg text-white"><strong>Director:</strong> {movie.Director}</p>
-                <p className="text-lg text-white"><strong>Genre:</strong> {movie.Genre}</p>
-                <p className="text-lg text-white"><strong>Runtime:</strong> {movie.Runtime}</p>
-                <p className="text-lg text-white mb-2"><strong>OTT:</strong> {movie.Ott}</p>
-                <p className="text-lg text-white mb-4"><strong>Family-Friendly:</strong> {movie.Family}</p>
+                <p className="text-lg text-white mb-2"><strong>Director:</strong> {movie.Director}</p>
+                <p className="text-lg text-white mb-2"><strong>Genre:</strong> {movie.Genre}</p>
+                <p className="text-lg text-white mb-2"><strong>Runtime:</strong> {movie.Runtime}</p>
+                <p className="text-lg text-white mb-2 "><strong>OTT:</strong> {movie.Ott}</p>
+                <p className="text-lg text-white mb-2 "><strong>Family-Friendly:</strong> {movie.Family}</p>
 
-                <h2 className="text-xl  text-white font-semibold mb-2">Plot</h2>
-                <p className="mb-4 text-white">{movie.Plot}</p>
+                <h2 className="text-xl  text-white font-semibold  mb-2">Plot</h2>
+                <p className="mb-2 text-white">{movie.Plot}</p>
 
                 <h2 className="text-xl text-white font-semibold mb-2">Your Review</h2>
                 <textarea
-                    className="w-full p-3 border border-white-300 rounded-lg mb-4 resize-none"
+                    className="w-full p-3 bg-black text-white   rounded-lg mb-2 resize-none"
                     rows="4"
                     value={movie.YourReview}
                     readOnly
                 />
 
-                <p className="text-lg text-white mb-4"><strong>Shared By:</strong> {movie.SharedBy}</p>
+                <p className="text-lg text-white mb-2"><strong>Shared By:</strong> {user}</p>
 
-                {token && (
+                {(token && user===movie.SharedBy) && (
+                    <>
                     <button
                         onClick={handleDelete}
-                        className="bg-red-600 text-black py-2 px-4 rounded-lg hover:bg-red-700 transition duration-200"
+                        className="bg-red-600 text-white py-2 px-4 rounded-lg hover:bg-red-700 transition duration-200"
                     >
-                        Delete Movie
+                        Delete Review
                     </button>
+                    <button
+      onClick={() => navigate(`/editpost/${id}`)} 
+      className="bg-orange-600 ml-3 text-white py-2 px-4 rounded-lg hover:bg-orange-700 transition duration-200"
+    >
+      Edit Review
+    </button>
+                    </>
                 )}
+                <button onClick={navigateToPost}  
+                className="bg-blue-600 ml-3 text-white py-2 px-4 rounded-lg hover:bg-blue-700 transition duration-200">
+                Add Review
+                </button>
                 
             </div>
            
