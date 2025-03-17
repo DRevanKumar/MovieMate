@@ -37,6 +37,8 @@ const Nav = () => {
     event.preventDefault();
     if (link === "Logout") {
       localStorage.removeItem('token');
+      localStorage.removeItem('username');
+
       navigate('/');
     } else if (link === "Write a Review") {
       navigate('/CreatePost');

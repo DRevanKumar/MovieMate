@@ -13,6 +13,7 @@ import AdSenseScript from "./AdSen";
 import axios from "axios";
 import { backend_Url } from "../config";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 const user = localStorage.getItem('username');
 const token = localStorage.getItem('token');
 
@@ -26,45 +27,6 @@ const[deleteLoader,setDeleteLoader] = useState(false)
   
   
 
-  const handleDelete = async () => {
-  
-          setDeleteLoader(true)
-          if (!token) {
-              alert("Unauthorized: No token found.");
-              return;
-          }
-  
-          try {
-              const response = await axios.delete(`${backend_Url}/post/${id}`, {
-                  headers: {
-                      Authorization: `${token}`, 
-                  },
-              });
-  
-              if (response.status === 200) {
-                  setDeleteLoader(!deleteLoader)
-  
-                  setTimeout(()=>navigate('/'),200);
-              } else {
-                  alert("failed to delete")
-              }
-          } catch (error) {
-              
-          }
-      };
-  
-      if (deleteLoader) return (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            className="flex justify-center items-center mt-48 top-1/2"
-          >
-            <div className="animate-spin top-1/2 mt-48 rounded-full h-32 w-32 border-t-2 border-b-2 border-blue-500"></div>
-          </motion.div>
-        );
-  
-  
-
   
    
 
@@ -75,10 +37,9 @@ const[deleteLoader,setDeleteLoader] = useState(false)
         const response = await axios.get(`${backend_Url}/movies`);
         createdMovie = response.data.filter((movie) => movie.Title == id);
         setMovie(createdMovie);
-        console.log(movie)
         
       } catch (error) {
-        console.log("Error fetching post:", error);
+        toast.error("Error fetching post")
       } finally {
         setLoading(false);
       }
@@ -88,8 +49,7 @@ const[deleteLoader,setDeleteLoader] = useState(false)
     fetchPost();
     
   }, [id]);
-        console.log(user)
-        console.log(token)
+       
 
 
  
@@ -167,14 +127,7 @@ const[deleteLoader,setDeleteLoader] = useState(false)
             <p className="ml-4 md:ml-4 font-semibold text-white font-sans  ps-4">{m.YourReview}</p>
           </div>
         ))}
-         {(token && user==movie[0].SharedBy) && (
-                    <button
-                        onClick={handleDelete}
-                        className="bg-red-600 text-white py-2 px-4 rounded-lg hover:bg-red-700 transition duration-200"
-                    >
-                        Delete Review
-                    </button>
-                )}
+         
                 <button onClick={navigateToPost}  
                 className="bg-blue-600 ml-3 text-white py-2 px-4 rounded-lg hover:bg-blue-700 transition duration-200">
                 Add Review

@@ -122,7 +122,7 @@ export function PostPage() {
                 <p className="text-lg text-white mb-2"><strong>Shared By:</strong> {user}</p>
 
                 {(token && user===movie.SharedBy) && (
-                    <>
+                    <div className="flex  relative left-36 md:flex-row md:align-baseline md:justify-self-auto">
                     <button
                         onClick={handleDelete}
                         className="bg-red-600 text-white py-2 px-4 rounded-lg hover:bg-red-700 transition duration-200"
@@ -135,10 +135,11 @@ export function PostPage() {
     >
       Edit Review
     </button>
-                    </>
+                    </div>
                 )}
+                
                 <button onClick={navigateToPost}  
-                className="bg-blue-600 ml-3 text-white py-2 px-4 rounded-lg hover:bg-blue-700 transition duration-200">
+                className=" flex relative bottom-10 left-0 bg-blue-600 ml-3 text-white py-2 px-4 rounded-lg hover:bg-blue-700 transition duration-200">
                 Add Review
                 </button>
                 
