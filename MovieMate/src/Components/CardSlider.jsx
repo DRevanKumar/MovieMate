@@ -31,10 +31,7 @@ export default function CardSlider() {
         const response = await axios.get(`${backend_Url}/movies`);
         if (Array.isArray(response.data)) {
           setMovies(response.data.reverse());
-           toast.info("Login to add your review",{
-                    autoclose:2000,
-                  })
-
+           
         } else {
           console.error("Expected an array, but got:", response.data);
         }

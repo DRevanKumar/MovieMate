@@ -85,6 +85,7 @@ export default function UpdatePassword(){
                                 />
                             </div>
                             <div className="relative w-full">
+                            <label className="block mb-1 text-sm font-medium text-gray-900 dark:text-white" htmlFor="user_identifier">New Password</label>
    
                                     <input
                                     type={showPassword ? "text" : "password"}

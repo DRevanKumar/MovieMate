@@ -88,7 +88,7 @@ export default function Login() {
                 <h1 className="flex items-center mb-6 text-4xl font-bold text-white dark:text-white">
                     Login
                 </h1>
-                <div className="w-full bg-gray-300 rounded-lg shadow-md dark:bg-gray-800 dark:border-gray-700">
+                <div className="w-full bg-gray-800 rounded-lg shadow-md dark:bg-gray-800 dark:border-gray-700">
                     <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
                         <form onSubmit={handleLogin} className="space-y-4 md:space-y-6">
                             <div>
@@ -107,6 +107,7 @@ export default function Login() {
                                 />
                             </div>
                             <div className="relative w-full">
+                            <label className="block mb-1 text-sm font-medium text-gray-900 dark:text-white" htmlFor="user_identifier">Your Password</label>
    
                                     <input
                                     type={showPassword ? "text" : "password"}

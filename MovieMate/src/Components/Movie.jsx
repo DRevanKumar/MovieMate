@@ -108,7 +108,6 @@ const[deleteLoader,setDeleteLoader] = useState(false)
 
           <h2 className="text-xl  text-white font-bold mb-2">Plot</h2>
           <p className=" text-white mb-2">{movie[0].Plot}</p>
-          <p className="text-lg text-white mb-2"><strong>Shared By:</strong> {user}</p>
 
 
           <div className="p-2 -ml-2 md:p-2  md:-ml-2 rounded-lg shadow-md">
@@ -123,15 +122,16 @@ const[deleteLoader,setDeleteLoader] = useState(false)
             key={m._id}
             className="mb-2 p-4 border border-gray-700 rounded-lg"
           >
-            
+            <p className="text-lg text-white mb-2"> {m.SharedBy}</p>
+
             <p className="ml-4 md:ml-4 font-semibold text-white font-sans  ps-4">{m.YourReview}</p>
           </div>
         ))}
-         
+              { token &&(
                 <button onClick={navigateToPost}  
                 className="bg-blue-600 ml-3 text-white py-2 px-4 rounded-lg hover:bg-blue-700 transition duration-200">
                 Add Review
-                </button>
+                </button>)}
       </div>
           
           
