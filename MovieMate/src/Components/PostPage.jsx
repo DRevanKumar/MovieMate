@@ -12,8 +12,7 @@ import { useNavigate } from "react-router-dom";
 import { backend_Url } from "../config";
 import { motion } from "framer-motion";
 
-import { Helmet } from "react-helmet-async";
-import AdSenseScript from "./AdSen";
+
 const user = localStorage.getItem('username');
 
 export function PostPage() {
@@ -87,7 +86,7 @@ export function PostPage() {
     return (
         <>
         
-        <AdSenseScript></AdSenseScript>
+        
         <motion.div 
             initial={{ y: 50, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
@@ -121,27 +120,36 @@ export function PostPage() {
 
                 <p className="text-lg text-white mb-2"><strong>Shared By:</strong> {user}</p>
 
-                {(token && user===movie.SharedBy) && (
-                    <div className="flex  relative left-36 md:flex-row md:align-baseline md:justify-self-auto">
-                    <button
-                        onClick={handleDelete}
-                        className="bg-red-600 text-white py-2 px-4 rounded-lg hover:bg-red-700 transition duration-200"
-                    >
-                        Delete Review
-                    </button>
-                    <button
-      onClick={() => navigate(`/editpost/${id}`)} 
-      className="bg-orange-600 ml-3 text-white py-2 px-4 rounded-lg hover:bg-orange-700 transition duration-200"
-    >
-      Edit Review
-    </button>
-                    </div>
-                )}
+                <div className="flex flex-col md:flex-row items-start md:items-center gap-3">
+
+  <button
+    className="flex-shrink-0 bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700 transition duration-200"
+  >
+    Add Review
+  </button>
+
+ 
+  {token && user === movie.SharedBy && (
+    <div className="flex flex-col md:flex-row gap-3">
+      {/* Delete Review Button */}
+      <button
+        onClick={handleDelete}
+        className="flex-shrink-0 bg-red-600 text-white py-2 px-4 rounded-lg hover:bg-red-700 transition duration-200"
+      >
+        Delete Review
+      </button>
+
+     
+      <button
+        onClick={() => navigate(`/editpost/${id}`)}
+        className="flex-shrink-0 bg-orange-600 text-white py-2 px-4 rounded-lg hover:bg-orange-700 transition duration-200"
+      >
+        Edit Review
+      </button>
+    </div>
+  )}
+</div>
                 
-                <button onClick={navigateToPost}  
-                className=" flex relative bottom-10 left-0 bg-blue-600 ml-3 text-white py-2 px-4 rounded-lg hover:bg-blue-700 transition duration-200">
-                Add Review
-                </button>
                 
             </div>
            

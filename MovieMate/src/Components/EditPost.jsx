@@ -87,10 +87,10 @@ const EditPost = () => {
           </div>
         </div>
 
-        {/* Form Section */}
+        
         <div className="w-full md:w-2/3">
           <form onSubmit={handleSubmit} className="space-y-4">
-            {/* Disabled Fields */}
+            
             <div>
               <label className="block text-md  text-white font-semibold">Title</label>
               <input
@@ -137,7 +137,7 @@ const EditPost = () => {
               />
             </div>
 
-            {/* Editable Fields */}
+           
             <div>
               <label className="block text-md  text-white font-semibold">Your Review</label>
               <textarea
@@ -166,7 +166,7 @@ const EditPost = () => {
               />
             </div>
 
-            {/* Submit Button */}
+           
             <button
               type="submit"
               className="w-full bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700 transition duration-200"

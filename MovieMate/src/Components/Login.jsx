@@ -10,15 +10,19 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import axios from 'axios';
 import { motion } from 'framer-motion';
-import AdSenseScript from "./AdSen";
-
+import { Eye, EyeOff } from "lucide-react";
 
 
 export default function Login() {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [loading, setLoading] = useState(false);
+    const [showPassword,setShowPassword] =useState(false)
     const navigate = useNavigate();
+
+    const handleForgotPassword =()=>{
+        navigate('/updatepassword')
+    }
 
     const handleSignup = () => {
         navigate("/signup");
@@ -73,9 +77,9 @@ export default function Login() {
 
     return (
         <>
-        <AdSenseScript></AdSenseScript>
         
-        <section className="min-h-fit mt-52 flex items-center justify-center ">
+        
+        <section className="min-h-fit mt-36 flex items-center justify-center ">
             <motion.div 
             initial={{ y: 50, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
@@ -102,23 +106,35 @@ export default function Login() {
                                     aria-required="true"
                                 />
                             </div>
-                            <div>
-                                <label className="block mb-1 text-sm font-medium text-gray-900 dark:text-white" htmlFor="access_code">Password</label>
-                                <input
-                                    type="password"
+                            <div className="relative w-full">
+   
+                                    <input
+                                    type={showPassword ? "text" : "password"}
                                     id="access_code"
                                     value={password}
-                                    onChange={e => setPassword(e.target.value)}
+                                    onChange={(e) => setPassword(e.target.value)}
                                     onKeyDown={handleKeyPress}
-                                    className="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                    className="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 pr-10 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                     placeholder="Password"
                                     required
                                     aria-label="Enter your password"
                                     aria-required="true"
-                                />
+                                    />
+
+                                    
+                                    <button
+                                    type="button"
+                                    onClick={() => setShowPassword(!showPassword)}
+                                    className="absolute inset-y-0 right-3 flex items-center text-gray-500 dark:text-gray-300"
+                                    aria-label={showPassword ? "Hide password" : "Show password"}
+                                    >
+                                    {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
+                                    </button>
+                                </div>
+    
                                 
-                            </div>
-                            <p className="text-white">Create Account? <span onClick={handleSignup} className="text-blue-400 cursor-pointer underline">Signup</span></p>
+                                <p className="text-white">Create Account? <span onClick={handleSignup} className="text-blue-400 cursor-pointer underline">Signup</span></p>
+                                <p className="text-white"> <span onClick={handleForgotPassword} className="text-blue-400 cursor-pointer underline">Forgot Password? </span></p>
                             <button
                                 type="submit"
                                 className={`w-full text-white bg-sky-700 hover:bg-sky-800 focus:ring-4 focus:outline-none focus:ring-sky-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-sky-600 dark:hover:bg-sky-700 dark:focus:ring-sky-800 ${loading ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'}`}

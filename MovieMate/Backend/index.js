@@ -6,6 +6,8 @@ import jsonwebtoken from 'jsonwebtoken';
 import User from './Db/User.js';
 import Post from './Db/Post.js';
 dotenv.config()
+import bcrypt from 'bcrypt'
+const saltRounds=10
 
 const app = express()
 app.use(express.json())
@@ -34,7 +36,7 @@ app.post('/register',async(req,res)=>{
         }
         const user=await User.create({
             username,
-            password
+            password:bcrypt.hashSync(password,saltRounds)
         })
           const token = jsonwebtoken.sign({id:user._id},secret);
         res.json({token});
@@ -59,7 +61,8 @@ app.post("/login",async(req,res)=>{
         if(!user){
             return res.status(404).json({message:"user not found"})
         }
-        if(password===user.password){
+        const passwordCheck=bcrypt.compareSync(password,user.password)
+        if(passwordCheck){
             const token= jsonwebtoken.sign({id:user._id},secret);
             res.json({token,username:user.username})
         }else{
@@ -195,6 +198,39 @@ app.get('/movies/:id', async (req, res) => {
         res.status(500).json({ message: "Internal server error" });
     }
 });
+
+app.put('/updatePassword', async(req,res)=>{
+    const { username,password } = req.body;
+
+    if(!username||!password){
+        return res.status(400).json({ meassage:"username and password are required"})
+    }
+
+    try{
+
+        const user = await User.findOne({username:username})
+        console.log(user)
+        if(!user){
+            return res.status(404).json({error:'user not found'})
+        }
+
+        const hashedpassword= bcrypt.hashSync(password,saltRounds);
+        console.log(hashedpassword)
+        console.log(password)
+
+        await User.findOneAndUpdate(
+            { username },
+            { password:hashedpassword },
+            { new:true }
+        );
+
+        res.status(200).json({message:'password updated successfully'})
+    }catch(error){
+        console.log(error);
+        res.status(500).json({error:"Internal server error"})
+    }
+
+})
 
 
 app.listen(3000, '0.0.0.0', () => {

@@ -9,7 +9,7 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { motion } from "framer-motion";
-import AdSenseScript from "./AdSen";
+
 import axios from "axios";
 import { backend_Url } from "../config";
 import { useNavigate } from "react-router-dom";
@@ -72,7 +72,7 @@ const[deleteLoader,setDeleteLoader] = useState(false)
   if (!movie) return <div className="text-center mt-10">Movie not found</div>;
   return (
     <>
-      <AdSenseScript></AdSenseScript>
+      
       <motion.div
         initial={{ y: 50, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}

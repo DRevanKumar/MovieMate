@@ -1,8 +1,3 @@
-
-<head>
-  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1449278693756025"
-     crossorigin="anonymous"></script>
-</head>
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { backend_Url } from "../config";
@@ -13,19 +8,18 @@ import { motion } from 'framer-motion';
 import { Eye, EyeOff } from "lucide-react";
 
 
-
-export default function Signup() {
-    const [username, setUsername] = useState("");
-    const [password, setPassword] = useState("");
-    const [loading, setLoading] = useState(false);
+export default function UpdatePassword(){
+    const [username,setUsername] = useState("")
+    const [password,setPassword] = useState("")
     const [showPassword,setShowPassword] = useState(false);
+    const [loading, setLoading] = useState(false);
+    
+
     const navigate = useNavigate();
 
-    const handleNavigate = () =>{
-        navigate("/login");
-    }
+   
 
-    const handleSignup = async (e) => {
+    const handleLogin = async (e) => {
         e.preventDefault();
         if (loading) return;
 
@@ -34,61 +28,55 @@ export default function Signup() {
             const trimmedUsername = username.trim();
             const trimmedPassword = password.trim();
 
-            const response = await axios.post(`${backend_Url}/register`, {
+            const response = await axios.put(`${backend_Url}/updatePassword`, {
                 username: trimmedUsername,
                 password: trimmedPassword
             });
 
             if (response.status === 200) {
-                localStorage.setItem('token', response.data.token);
-                localStorage.setItem('username', response.data.username);
-                toast.success('Signup Successful!');
+                
+                toast.success('password updated Successful!');
                 setTimeout(() => {
-                    navigate("/");
+                    navigate("/login");
                 }, 2000);
             }
         } catch (e) {
-            if (e.response?.status === 404) {
-                toast.error('User not found. Please check your username.');
-            } else if (e.response?.status === 411) {
-                toast.error('Incorrect credentials. Please try again.');
-            } else {
-                toast.error('An error occurred. Please try again later.');
-            }
+            console.log(e)
         } finally {
             setLoading(false);
         }
     }
 
     const handleKeyPress = (e) => {
-        if (e.key === 'Enter') {
-            handleSignup(e);
+        if (e.key === 'Enter'&& !loading) {
+            handleLogin(e);
         }
     }
 
-    return (
+    return(
+
         <>
+        <AdSenseScript></AdSenseScript>
         
-        
-        <section className="min-h-fit mt-36 flex items-center justify-center ">
+        <section className="min-h-fit mt-52 flex items-center justify-center ">
             <motion.div 
             initial={{ y: 50, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ duration: 0.5 }}
             className="flex flex-col items-center justify-center pt-0  mx-auto lg:py-0 w-full max-w-md">
                 <h1 className="flex items-center mb-6 text-4xl font-bold text-white dark:text-white">
-                    Signup
+                    Update Password
                 </h1>
                 <div className="w-full bg-gray-300 rounded-lg shadow-md dark:bg-gray-800 dark:border-gray-700">
                     <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
-                        <form onSubmit={handleSignup} className="space-y-4 md:space-y-6">
+                        <form onSubmit={handleLogin} className="space-y-4 md:space-y-6">
                             <div>
                                 <label className="block mb-1 text-sm font-medium text-gray-900 dark:text-white" htmlFor="user_identifier">Your Username</label>
                                 <input
                                     type="text"
                                     id="user_identifier"
                                     value={username}
-                                    onChange={e => setUsername(e.target.value.trim())}
+                                    onChange={e => setUsername(e.target.value)}
                                     onKeyDown={handleKeyPress}
                                     className="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                     placeholder="Username"
@@ -97,9 +85,8 @@ export default function Signup() {
                                     aria-required="true"
                                 />
                             </div>
-                            
                             <div className="relative w-full">
-        
+   
                                     <input
                                     type={showPassword ? "text" : "password"}
                                     id="access_code"
@@ -113,25 +100,25 @@ export default function Signup() {
                                     aria-required="true"
                                     />
 
-                           
+                                    
                                     <button
-                                            type="button"
-                                            onClick={() => setShowPassword(!showPassword)}
-                                            className="absolute inset-y-0 right-3 flex items-center text-gray-500 dark:text-gray-300"
-                                            aria-label={showPassword ? "Hide password" : "Show password"}
-                                            >
-                                            {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
-                                            </button>
+                                    type="button"
+                                    onClick={() => setShowPassword(!showPassword)}
+                                    className="absolute inset-y-0 right-3 flex items-center text-gray-500 dark:text-gray-300"
+                                    aria-label={showPassword ? "Hide password" : "Show password"}
+                                    >
+                                    {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
+                                    </button>
                                 </div>
-                               
-
-                            <p className="text-white">Already have an account? <span onClick={handleNavigate} className="text-blue-400 cursor-pointer underline">login</span></p>
+    
+                                
+                                
                             <button
                                 type="submit"
                                 className={`w-full text-white bg-sky-700 hover:bg-sky-800 focus:ring-4 focus:outline-none focus:ring-sky-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-sky-600 dark:hover:bg-sky-700 dark:focus:ring-sky-800 ${loading ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'}`}
                                 disabled={loading}
                             >
-                                {loading ? 'Signing up...' : 'Sign up'}
+                                {loading ? 'updating Password...' : 'Update password'}
                             </button>
                         </form>
                         {loading && (
@@ -159,5 +146,6 @@ export default function Signup() {
             />
         </section>
         </>
+
     )
 }

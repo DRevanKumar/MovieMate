@@ -12,7 +12,6 @@ import "swiper/css/free-mode";
 import "swiper/css/navigation";
 import { MoviesStateContext } from "./Moviecontext";
 import Search from "./Searchbar";
-import AdSenseScript from "./AdSen";
 
 export default function Movies() {
     const { id } = useParams();
@@ -65,7 +64,7 @@ export default function Movies() {
 
     return (
         <>
-        <AdSenseScript></AdSenseScript>
+        
        
         <div className="flex z-10 relative mt-24  justify-center items-center">
         <Search ></Search>

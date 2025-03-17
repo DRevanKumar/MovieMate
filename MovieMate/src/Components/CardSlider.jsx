@@ -14,11 +14,16 @@ import "swiper/css/pagination";
 import "swiper/css/free-mode";
 import "swiper/css/navigation";
 import { MoviesStateContext } from "./Moviecontext";
+import { ToastContainer,toast } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
 
 export default function CardSlider() {
+  <ToastContainer position="top-left" />
   const navigate = useNavigate();
   const [loading, setLoading] = useState(true);
   const {movies, setMovies} = useContext(MoviesStateContext);
+
+  
 
   useEffect(() => {
     async function fetchPost() {
@@ -26,6 +31,10 @@ export default function CardSlider() {
         const response = await axios.get(`${backend_Url}/movies`);
         if (Array.isArray(response.data)) {
           setMovies(response.data.reverse());
+           toast.info("Login to add your review",{
+                    autoclose:2000,
+                  })
+
         } else {
           console.error("Expected an array, but got:", response.data);
         }
@@ -69,6 +78,10 @@ export default function CardSlider() {
   };
 
   return (
+    <>
+    <div>
+
+    </div>
     <motion.div
     initial={{ opacity: 0, y: window.innerWidth < 768 ? 0 : 50 }}
 
@@ -179,5 +192,6 @@ export default function CardSlider() {
         }
       `}</style>
     </motion.div>
+    </>
   );
 }

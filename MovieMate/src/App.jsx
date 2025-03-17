@@ -11,18 +11,18 @@ import { MoviesStateContextProvider } from './Components/Moviecontext'
 import Nav from './Components/Navbar'
 import CardSlider from './Components/CardSlider'
 import MoviesByReviewer from './Components/IndividualMovies'
-import { Helmet } from 'react-helmet-async'
-import AdSenseScript from './Components/AdSen'
+
 import GenreMovies from './Components/GenreMovies'
 import Signup from './Components/Signup'
 import Movie from './Components/Movie'
 import AddReview from './Components/AddReview'
 import EditPost from './Components/EditPost'
+import UpdatePassword from './Components/UpdatePassword'
 
 function App() {
   return (
     <>
-    <AdSenseScript></AdSenseScript>
+   
      
 
 
@@ -38,6 +38,7 @@ function App() {
       <Route path='/genre/:genre' element={<GenreMovies/>}></Route>
       <Route path='/addreview' element={<AddReview/>}></Route>
       <Route path='/editpost/:id' element={<EditPost/>}></Route>
+      <Route path='/updatepassword' element={<UpdatePassword/>}></Route>
 
       
       

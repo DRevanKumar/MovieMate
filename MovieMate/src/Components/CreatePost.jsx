@@ -5,8 +5,7 @@ import React,  {useState} from 'react';
 import { backend_Url } from '../config';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { Helmet } from 'react-helmet-async';
-import AdSenseScript from './AdSen';
+
 
 
 
@@ -131,7 +130,7 @@ function CreatePost() {
 
   return (
     <>
-    <AdSenseScript></AdSenseScript>
+    
     
     <div  className="min-h-fit mt-64 flex items-center justify-center ">
       <div className=" min-h-fit w-full max-w-xl p-6 bg-white rounded-lg shadow-lg">
