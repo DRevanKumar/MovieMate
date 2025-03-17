@@ -56,7 +56,6 @@ export default function UpdatePassword(){
     return(
 
         <>
-        <AdSenseScript></AdSenseScript>
         
         <section className="min-h-fit mt-52 flex items-center justify-center ">
             <motion.div 
