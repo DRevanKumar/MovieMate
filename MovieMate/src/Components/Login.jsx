@@ -92,7 +92,7 @@ export default function Login() {
                     <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
                         <form onSubmit={handleLogin} className="space-y-4 md:space-y-6">
                             <div>
-                                <label className="block mb-1 text-sm font-medium text-gray-900 dark:text-white" htmlFor="user_identifier">Your Username</label>
+                                <label className="block mb-1 text-sm font-medium text-white dark:text-white" htmlFor="user_identifier">Your Username</label>
                                 <input
                                     type="text"
                                     id="user_identifier"
@@ -107,7 +107,7 @@ export default function Login() {
                                 />
                             </div>
                             <div className="relative w-full">
-                            <label className="block mb-1 text-sm font-medium text-gray-900 dark:text-white" htmlFor="user_identifier">Your Password</label>
+                            <label className="block mb-1 text-sm font-medium text-white dark:text-white" htmlFor="user_identifier">Your Password</label>
    
                                     <input
                                     type={showPassword ? "text" : "password"}
@@ -126,7 +126,7 @@ export default function Login() {
                                     <button
                                     type="button"
                                     onClick={() => setShowPassword(!showPassword)}
-                                    className="absolute inset-y-0 right-3 flex items-center text-gray-500 dark:text-gray-300"
+                                    className="absolute inset-y-12 right-3 flex items-center text-gray-500 dark:text-gray-300"
                                     aria-label={showPassword ? "Hide password" : "Show password"}
                                     >
                                     {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}

@@ -39,7 +39,7 @@ const Nav = () => {
       localStorage.removeItem('token');
       localStorage.removeItem('username');
 
-      navigate('/');
+      navigate('/login');
     } else if (link === "Write a Review") {
       navigate('/CreatePost');
     } else if (link === "Login") {

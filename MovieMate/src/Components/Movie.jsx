@@ -18,6 +18,7 @@ const user = localStorage.getItem('username');
 const token = localStorage.getItem('token');
 
 
+
 export default function Movie() {
   const { id } = useParams();
   const [movie, setMovie] = useState(null);
@@ -127,7 +128,7 @@ const[deleteLoader,setDeleteLoader] = useState(false)
             <p className="ml-4 md:ml-4 font-semibold text-white font-sans  ps-4">{m.YourReview}</p>
           </div>
         ))}
-              { token &&(
+              {token && user != movie[0].SharedBy &&(
                 <button onClick={navigateToPost}  
                 className="bg-blue-600 ml-3 text-white py-2 px-4 rounded-lg hover:bg-blue-700 transition duration-200">
                 Add Review

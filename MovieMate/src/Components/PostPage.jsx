@@ -118,7 +118,7 @@ export function PostPage() {
                     readOnly
                 />
 
-                <p className="text-lg text-white mb-2"><strong>Shared By:</strong> {user}</p>
+                <p className="text-lg text-white mb-2"><strong>Shared By:</strong>{movie.SharedBy}</p>
 
                 <div className="flex flex-col md:flex-row items-start md:items-center gap-3">
 
@@ -127,11 +127,7 @@ export function PostPage() {
  
   {token && user === movie.SharedBy && (
     <div className="flex flex-col md:flex-row gap-3">
-      <button
-    className="flex-shrink-0 bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700 transition duration-200"
-  >
-    Add Review
-  </button>
+      
       <button
         onClick={handleDelete}
         className="flex-shrink-0 bg-red-600 text-white py-2 px-4 rounded-lg hover:bg-red-700 transition duration-200"

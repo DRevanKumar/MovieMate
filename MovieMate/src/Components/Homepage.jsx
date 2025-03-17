@@ -26,7 +26,7 @@ export default function Homepage() {
             <div className='relative z-40 mt-24 '>
                 <Search />
             </div>
-            <p className={`${token ? 'hidden' : 'block'} relative top-8 text-center text-lg text-gray-700 dark:text-gray-300  p-4 rounded-lg  shadow-md`}>
+            <p className={`${token ? 'hidden' : 'block'} relative top-8 text-center text-lg text-gray-300 dark:text-gray-300  p-4 rounded-lg  shadow-md`}>
   🚀 Please <a href="/login" className="text-blue-600 dark:text-blue-400 font-semibold hover:underline">log in</a> to add your review and share your thoughts!
 </p>
 
