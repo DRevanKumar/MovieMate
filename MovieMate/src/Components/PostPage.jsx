@@ -128,6 +128,7 @@ export function PostPage() {
   {token && user === movie.SharedBy && (
     <div className="flex flex-col md:flex-row gap-3">
       
+      
       <button
         onClick={handleDelete}
         className="flex-shrink-0 bg-red-600 text-white py-2 px-4 rounded-lg hover:bg-red-700 transition duration-200"
@@ -144,6 +145,17 @@ export function PostPage() {
       </button>
     </div>
   )}
+  {token && user != movie.SharedBy && (
+    <div className="flex flex-col md:flex-row gap-3">
+      
+      
+      <button onClick={navigateToPost}  
+                className="bg-blue-600 ml-3 text-white py-2 px-4 rounded-lg hover:bg-blue-700 transition duration-200">
+                Add Review
+      </button>
+      </div>
+  )}
+
 </div>
                 
                 
